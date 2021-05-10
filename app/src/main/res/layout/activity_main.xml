@@ -211,19 +211,28 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/red"
-        android:drawableLeft="@drawable/ic_add"
-        android:onClick="onAddADeviceClick"
-        android:padding="10dp"
-        android:text="@string/add_a_device"
-        android:textAllCaps="false"
-        android:textSize="16sp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onAddADeviceClick"/>
+
+<!--    <Button-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:backgroundTint="@color/red"-->
+<!--        android:drawableLeft="@drawable/ic_add"-->
+<!--        android:onClick="onAddADeviceClick"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="@string/add_a_device"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="16sp" />-->
 
 </RelativeLayout>
