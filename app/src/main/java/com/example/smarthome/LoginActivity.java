@@ -1,6 +1,7 @@
 package com.example.smarthome;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toasty.warning(LoginActivity.this, "Password should be longer", Toast.LENGTH_SHORT, true).show();
             } else if (email.contains("@") && email.contains(".") && password.length() >= 6) {
                 signInButton.setEnabled(false);
+                signInButton.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+                signInButton.setTextColor(Color.parseColor("#ffffff"));
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -89,19 +93,28 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                     } else {
                                         //Toast.makeText(LoginActivity.this, "Log in failed", Toast.LENGTH_SHORT).show();
+                                        //signInButton.setEnabled(true);
+                                        //signInButton.setBackgroundColor(getResources().getColor(R.color.red));
                                         Toasty.info(LoginActivity.this, "Email not verified", Toast.LENGTH_SHORT, true).show();
                                     }
                                 } else {
                                     if (task.getException().getLocalizedMessage().toString().contains("password")) {
                                         //Toast.makeText(LoginActivity.this,"Incorrect password",Toast.LENGTH_SHORT).show();
+                                        //signInButton.setEnabled(true);
+                                        //signInButton.setBackgroundColor(getResources().getColor(R.color.red));
                                         Toasty.error(LoginActivity.this, "Incorrect password", Toast.LENGTH_SHORT, true).show();
                                     }
                                 }
                             }
-                        });
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        signInButton.setEnabled(true);
+                        signInButton.setBackgroundColor(getResources().getColor(R.color.red));
+                    }
+                });
 
                 //Toasty.info(LoginActivity.this,"Email not verified",Toast.LENGTH_SHORT,true).show();
-                signInButton.setEnabled(true);
             }
         }
     }

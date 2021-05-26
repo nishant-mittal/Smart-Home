@@ -15,5 +15,6 @@
     <color name="dark_blue">#30336B</color>
     <color name="green">#6AB04C</color>
     <color name="grey">#f5f5f5</color>
+    <color name="dark_grey">#95a5a6</color>
     <color name="transparent">#00000000</color>
 </resources>

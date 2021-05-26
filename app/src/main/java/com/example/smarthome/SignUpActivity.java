@@ -1,6 +1,7 @@
 package com.example.smarthome;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -98,6 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             else if(email.contains("@") && email.contains(".") && password.equals(repassword) && password.length() >= 6) {
                 signUpButton.setEnabled(false);
+                signUpButton.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+                signUpButton.setTextColor(Color.parseColor("#ffffff"));
                 Toasty.info(SignUpActivity.this,"Creating account",Toasty.LENGTH_SHORT,false).show();
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
@@ -131,14 +134,23 @@ public class SignUpActivity extends AppCompatActivity {
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+                                            signUpButton.setEnabled(true);
+                                            signUpButton.setBackgroundColor(getResources().getColor(R.color.red));
                                             //Toast.makeText(SignUpActivity.this, "Account could not be created", Toast.LENGTH_SHORT).show();
                                             Toasty.error(SignUpActivity.this, "Account could not be created", Toast.LENGTH_SHORT, true).show();
                                         }
                                     });
                                 }
                             }
-                        });
-                signUpButton.setEnabled(true);
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        signUpButton.setEnabled(true);
+                        signUpButton.setBackgroundColor(getResources().getColor(R.color.red));
+                        Toasty.info(SignUpActivity.this,"Account could not be created",Toasty.LENGTH_SHORT,false).show();
+                    }
+                });
+                //signUpButton.setEnabled(true);
             }
         }
     }
